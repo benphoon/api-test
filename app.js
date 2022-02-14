@@ -1,27 +1,18 @@
 const express = require('express');
-
 const app = express();
+const mongoose = require('mongoose')
+require('dotenv/config')
 
-//Middlewares
+//Middleware
 //- functions that execute when routes are being hit
-app.use('/posts', () => {
-    console.log('hello, this is a middleware running');
-});
+const postsRoute = require('./routes/posts')
 
+app.use('/posts', postsRoute);
 
-//ROUTES
-//get - get info
-//post -  eg submit a form (give info)
-//delete - 
-//patch - 
-//first parameter = route
-app.get('/', (req, res) => {
-    res.send('We are on homepage')
-});
-
-app.get('/posts', (req, res) => {
-    res.send('We are on posts')
-});
+// Connect to Database
+mongoose.connect(process.env.DB_CONNECTION, () => {
+    console.log('Connected to Database!');
+})
 
 //How do we start listening to the server?
 app.listen(3000);
