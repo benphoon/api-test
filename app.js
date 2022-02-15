@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 require('dotenv/config')
 
 //Middleware
+app.use(bodyParser.json());
+
 //- functions that execute when routes are being hit
 const postsRoute = require('./routes/posts')
-
 app.use('/posts', postsRoute);
 
 // Connect to Database
